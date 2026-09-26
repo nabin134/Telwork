@@ -231,8 +231,18 @@ p { margin: 0 0 1em; }
  margin: 1.6rem 0 1.8rem;
 }
 .cta-note { color: var(--muted); font-weight: 500; font-size: .95rem; }
-.trust-row { display: flex; align-items: center; gap: .9rem; }
-.avatar-stack { display: flex; align-items: center; }
+.trust-row {
+ display: flex;
+ align-items: center;
+ gap: .9rem;
+ flex-wrap: wrap;
+ max-width: 100%;
+}
+.avatar-stack {
+ display: flex;
+ align-items: center;
+ flex-shrink: 0;
+}
 .avatar {
  width: 42px; height: 42px;
  border-radius: 50%;
@@ -241,13 +251,23 @@ p { margin: 0 0 1em; }
  object-fit: cover;
  object-position: center top;
  background: var(--grad-soft);
+ flex-shrink: 0;
 }
 .avatar + .avatar { margin-left: -12px; }
 .a1 { background: linear-gradient(135deg, #FF8FB1, #E63965); }
 .a2 { background: linear-gradient(135deg, #FFB48A, #FF7A45); }
 .a3 { background: linear-gradient(135deg, #F7A6C0, #FF7A45); }
 .a4 { background: linear-gradient(135deg, #E63965, #FF7A45); }
-.trust-text { display: flex; flex-direction: column; font-size: .92rem; color: var(--muted); }
+.trust-text {
+ display: flex;
+ flex-direction: column;
+ gap: .15rem;
+ font-size: .92rem;
+ color: var(--muted);
+ min-width: 0;
+ flex: 1 1 auto;
+ line-height: 1.35;
+}
 .stars { color: var(--orange); letter-spacing: .15em; font-size: 1rem; }
 
 /* Hero visual */
@@ -1154,11 +1174,35 @@ p { margin: 0 0 1em; }
  .hero-cta { gap: .7rem; }
  .hero-cta .btn { width: 100%; justify-content: center; }
  .section-intro { margin-top: -.8rem; }
+ .trust-row {
+   flex-direction: column;
+   align-items: flex-start;
+   gap: .75rem;
+   width: 100%;
+ }
+ .avatar-stack { padding-left: 2px; }
+ .avatar {
+   width: 36px;
+   height: 36px;
+   border-width: 2px;
+ }
+ .avatar + .avatar { margin-left: -10px; }
+ .trust-text {
+   width: 100%;
+   font-size: .88rem;
+ }
+ .stars { font-size: .95rem; letter-spacing: .12em; }
 }
 
 @media (max-width: 380px) {
  .brand-sub { display: none; }
  .member-grid { grid-template-columns: 1fr; max-width: 20rem; margin-inline: auto; }
+ .avatar {
+   width: 32px;
+   height: 32px;
+ }
+ .avatar + .avatar { margin-left: -8px; }
+ .trust-text { font-size: .84rem; }
 }
 
 /* ---------- Reduced motion ---------- */
