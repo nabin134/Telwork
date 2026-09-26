@@ -1,6 +1,5 @@
 (function () {
   const cfg = window.WINKME || {};
-  const profiles = window.PROFILES || [];
 
   function telegramHref() {
     return cfg.telegramUrl && cfg.telegramUrl.trim()
@@ -18,22 +17,9 @@
 
   const icons = {
     telegram: `<svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8-1.61 7.59c-.12.54-.43.67-.87.42l-2.4-1.77-1.16 1.12c-.13.13-.24.24-.49.24l.17-2.43 4.47-4.04c.19-.17-.04-.27-.3-.1l-5.53 3.48-2.38-.75c-.52-.16-.53-.52.11-.77l9.3-3.58c.43-.16.81.1.67.59z"/></svg>`,
-    check: `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`,
-    pin: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>`,
-    cake: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 6a2 2 0 1 0-2-2 2 2 0 0 0 2 2zm6 4h-2.18A3 3 0 0 0 13 8h-2a3 3 0 0 0-2.82 2H6a2 2 0 0 0-2 2v2h16v-2a2 2 0 0 0-2-2zM4 16v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4H4z"/></svg>`,
-    lock: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-7 0V6a1 1 0 0 1 2 0v2h-2z"/></svg>`,
   };
 
-  function pathPrefix() {
-    const depth = (location.pathname.match(/\//g) || []).length;
-    // file:// or nested: profiles/x.html → need ../
-    if (/\/profiles\//.test(location.pathname) || /\\profiles\\/.test(location.pathname)) {
-      return "../";
-    }
-    return "";
-  }
-
-  const base = pathPrefix();
+  const base = "";
 
   function renderHeader(active) {
     const el = document.getElementById("site-header");
@@ -108,42 +94,6 @@
 </footer>`;
   }
 
-  function resolvePhoto(src) {
-    if (!src) return "";
-    if (/^https?:\/\//i.test(src) || src.startsWith("data:")) return src;
-    return base + src.replace(/^\.\//, "");
-  }
-
-  function memberCard(p, opts = {}) {
-    const prefix = opts.prefix != null ? opts.prefix : base;
-    const href = `${prefix}profile.html?slug=${encodeURIComponent(p.slug)}`;
-    const initial = (p.name || "?").charAt(0).toUpperCase();
-    const age = p.age ? `${p.age} years` : "";
-    const city = p.city || "";
-    const photo = resolvePhoto(p.photo);
-    return `
-<article class="member-card reveal">
-  <a class="member-hit" href="${href}" aria-label="View ${p.name}'s profile"></a>
-  ${p.verified ? `<span class="member-verified">${icons.check} Verified</span>` : ""}
-  ${p.online ? `<span class="member-online" title="Online now"></span>` : ""}
-  <div class="member-media">
-    <img src="${photo}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<span class=member-initial>${initial}</span>')">
-  </div>
-  <div class="member-info">
-    <h3>${p.name}</h3>
-    ${age ? `<p class="member-meta"><span class="member-age">${icons.cake} ${age}</span></p>` : ""}
-    ${city ? `<p class="member-meta">${icons.pin} ${city}</p>` : ""}
-    <a class="member-lock" href="${href}">${icons.lock} View profile</a>
-  </div>
-</article>`;
-  }
-
-  function renderMemberGrid(selector, list, opts) {
-    const el = document.querySelector(selector);
-    if (!el) return;
-    el.innerHTML = list.map((p) => memberCard(p, opts)).join("");
-  }
-
   function wireTelegram() {
     document.querySelectorAll(".tg-link, [data-telegram-pending]").forEach((a) => {
       a.addEventListener("click", (e) => {
@@ -191,10 +141,6 @@
       { threshold: 0.12 }
     );
     nodes.forEach((n) => io.observe(n));
-  }
-
-  function getProfile(slug) {
-    return profiles.find((p) => p.slug === slug);
   }
 
   function initPlanSlider(root) {
@@ -250,10 +196,6 @@
     telegramHref,
     renderHeader,
     renderFooter,
-    memberCard,
-    renderMemberGrid,
-    getProfile,
-    profiles,
     cfg,
     base,
     initPlanSlider,
