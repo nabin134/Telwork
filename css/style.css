@@ -369,7 +369,12 @@ p { margin: 0 0 1em; }
  text-align: center;
  box-shadow: var(--shadow);
  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+ color: inherit;
+ text-decoration: none;
+ display: block;
+ cursor: pointer;
 }
+a.feature-card:hover { color: inherit; }
 .feature-card:hover {
  transform: translateY(-6px);
  box-shadow: var(--shadow-lg);
@@ -406,6 +411,18 @@ p { margin: 0 0 1em; }
  text-align: center;
  padding: 0 .4rem;
 }
+.step-hit {
+ display: block;
+ color: inherit;
+ text-decoration: none;
+ cursor: pointer;
+ border-radius: var(--radius);
+ padding: .4rem .2rem .6rem;
+ transition: transform .2s ease;
+}
+.step-hit:hover { color: inherit; transform: translateY(-4px); }
+.step-hit:hover .step-icon { transform: scale(1.07); border-color: var(--pink); }
+
 /* dashed connector between steps */
 .step:not(:last-child)::after {
  content: "";
