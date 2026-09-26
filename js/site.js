@@ -157,10 +157,25 @@
     let index = 0;
     const delay = parseInt(root.dataset.autoplay || "2000", 10);
     let timer = null;
+    const perView = () => {
+      if (opts.responsive) {
+        const w = window.innerWidth;
+        if (w <= 480) return 1;
+        if (w <= 700) return 2;
+        if (w <= 1024) return 3;
+        return 5;
+      }
+      return 1;
+    };
 
     function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      track.style.transform = `translateX(-${index * 100}%)`;
+      const visible = perView();
+      const maxIndex = Math.max(0, slides.length - visible);
+      index = ((i % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
+      const slide = slides[0];
+      const gap = opts.responsive ? (parseFloat(getComputedStyle(track).gap) || 0) : 0;
+      const step = slide.getBoundingClientRect().width + gap;
+      track.style.transform = `translateX(-${index * step}px)`;
       dots.forEach((d, di) => d.classList.toggle("is-active", di === index));
     }
 
@@ -187,6 +202,7 @@
     root.addEventListener("mouseleave", start);
     root.addEventListener("touchstart", stop, { passive: true });
     root.addEventListener("touchend", start, { passive: true });
+    window.addEventListener("resize", () => goTo(index));
 
     goTo(0);
     start();
@@ -197,7 +213,7 @@
   }
 
   function initGallerySlider(root) {
-    initCarousel(root, { track: ".gallery-track", slide: ".gallery-slide" });
+    initCarousel(root, { track: ".gallery-track", slide: ".gallery-slide", responsive: true });
   }
 
   window.WinkSite = {
