@@ -1344,3 +1344,147 @@ p { margin: 0 0 1em; }
  font-weight: 600;
  text-decoration: underline;
 }
+
+/* ==========================================================
+ Love / romance theme polish
+ ========================================================== */
+.love-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55rem 35rem at 0% -10%, rgba(255, 196, 214, .35) 0%, transparent 55%),
+    radial-gradient(48rem 32rem at 100% 10%, rgba(255, 214, 186, .28) 0%, transparent 50%),
+    radial-gradient(40rem 28rem at 50% 100%, rgba(255, 228, 236, .4) 0%, transparent 55%),
+    #FFFCFD;
+}
+.love-theme body,
+body.love-theme {
+  background: transparent;
+}
+.hero {
+  background:
+    radial-gradient(60rem 32rem at 110% -10%, #FFEDE4 0%, transparent 60%),
+    radial-gradient(50rem 30rem at -15% 20%, var(--pink-mist) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.4) 0%, transparent 40%);
+  padding: 4.8rem 0 5.2rem;
+}
+.hero h1 {
+  font-size: clamp(2.55rem, 5.4vw, 3.9rem);
+  letter-spacing: -.02em;
+}
+.hero .lead {
+  font-size: 1.18rem;
+  max-width: 32rem;
+}
+.hero-visual { position: relative; }
+.hero-ring {
+  position: absolute;
+  inset: -4% -3% auto auto;
+  width: 92%;
+  height: 92%;
+  border-radius: 34px;
+  background: linear-gradient(140deg, rgba(230,57,101,.18), rgba(255,122,69,.12));
+  transform: rotate(4deg);
+  z-index: 0;
+}
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow:
+    0 18px 40px rgba(230, 57, 101, .18),
+    0 4px 0 rgba(255,255,255,.8) inset;
+  aspect-ratio: 4 / 4.7;
+  background: var(--grad-soft);
+  border: 7px solid #fff;
+}
+.hero-chip {
+  z-index: 2;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.7);
+}
+.feature-card {
+  border-radius: 24px;
+  background: linear-gradient(180deg, #fff 0%, #FFF8FA 100%);
+}
+.feature-card:hover {
+  border-color: #FFB0C5;
+}
+.love-caption {
+  margin-top: -.6rem !important;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+.gallery-slide {
+  position: relative;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.gallery-slide::after {
+  content: "❤";
+  position: absolute;
+  right: .7rem;
+  bottom: .7rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.92);
+  color: var(--crimson);
+  font-size: .85rem;
+  box-shadow: 0 6px 16px rgba(230,57,101,.2);
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.gallery-slide:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 22px 40px rgba(230,57,101,.2);
+}
+.gallery-slide:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.cta-banner {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #E63965 0%, #FF6B8A 42%, #FF7A45 100%);
+  border-radius: 32px;
+  padding: 2.6rem 2.8rem;
+}
+.cta-banner::before,
+.cta-banner::after {
+  content: "❤";
+  position: absolute;
+  font-size: 5rem;
+  opacity: .12;
+  pointer-events: none;
+}
+.cta-banner::before { left: 8%; top: -10%; transform: rotate(-18deg); }
+.cta-banner::after { right: 10%; bottom: -18%; transform: rotate(12deg); }
+.vip-card {
+  border-radius: 30px;
+}
+.section-title {
+  letter-spacing: -.01em;
+}
+.title-heart {
+  font-size: 1rem;
+  animation: softBeat 2.8s ease-in-out infinite;
+}
+@keyframes softBeat {
+  0%, 100% { transform: scale(1); opacity: .85; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+.site-footer {
+  background: linear-gradient(180deg, #FFF3F7 0%, #FFE8F0 100%);
+}
+.btn-gradient {
+  box-shadow: 0 10px 26px rgba(230, 57, 101, .32);
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-heart, .gallery-slide::after { animation: none; }
+}
