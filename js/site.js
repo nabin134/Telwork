@@ -220,8 +220,11 @@
 
       if (index >= realCount) {
         locked = true;
+        let done = false;
         const onEnd = (e) => {
+          if (done) return;
           if (e && e.target !== track) return;
+          done = true;
           track.removeEventListener("transitionend", onEnd);
           index = 0;
           setX(0, false);
@@ -229,7 +232,6 @@
           locked = false;
         };
         track.addEventListener("transitionend", onEnd);
-        // fallback if transitionend missed
         setTimeout(onEnd, 700);
       }
     }
