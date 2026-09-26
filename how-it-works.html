@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How it works — Wink Me Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>How it works</h1>
+        <p>Joining takes less than a minute.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container prose" style="margin-inline:auto;text-align:center">
+        <p>Click “Join on Telegram”, and Telegram opens directly on your device. Our support team welcomes you, and from there you can start meeting new people right away.</p>
+        <ol class="steps" style="text-align:left;margin-top:2.5rem">
+          <li class="step"><span class="step-num">1</span><span class="step-icon">🌐</span><h3>Visit Wink Me Club</h3><p>Come to our website and learn about our community.</p></li>
+          <li class="step"><span class="step-num">2</span><span class="step-icon">👆</span><h3>Click join</h3><p>Click the “Join on Telegram” button.</p></li>
+          <li class="step"><span class="step-num">3</span><span class="step-icon">💬</span><h3>Open Telegram</h3><p>Telegram opens directly on your device.</p></li>
+          <li class="step"><span class="step-num">4</span><span class="step-icon">🤝</span><h3>Chat with us</h3><p>Our support team will welcome you and assist you.</p></li>
+          <li class="step"><span class="step-num">5</span><span class="step-icon">❤</span><h3>Start connecting</h3><p>Start meeting new people and build real connections.</p></li>
+        </ol>
+        <p style="margin-top:2rem"><a class="btn btn-gradient btn-lg tg-link" href="#telegram">Join on Telegram</a></p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/config.js"></script>
+  <script src="js/profiles-data.js"></script>
+  <script src="js/site.js"></script>
+  <script>WinkSite.init("how"); document.querySelectorAll(".tg-link").forEach(a => a.setAttribute("href", WinkSite.telegramHref()));</script>
+</body>
+</html>

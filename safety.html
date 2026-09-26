@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Safety — Wink Me Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-hero">
+      <div class="container"><h1>Safety</h1><p>Your privacy and safety come first.</p></div>
+    </section>
+    <section class="section">
+      <div class="container prose" style="margin-inline:auto">
+        <p>Never share financial information or send money to anyone you meet online. Keep personal details private until you trust someone, and report any behavior that makes you uncomfortable — our team acts on every report.</p>
+        <ul style="color:var(--muted);line-height:1.8">
+          <li>Meet in public places for the first few times</li>
+          <li>Tell a friend where you are going</li>
+          <li>Do not share OTPs, bank details, or passwords</li>
+          <li>Use Telegram support if something feels wrong</li>
+        </ul>
+        <a class="btn btn-gradient tg-link" href="#telegram">Talk to support on Telegram</a>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/config.js"></script>
+  <script src="js/profiles-data.js"></script>
+  <script src="js/site.js"></script>
+  <script>WinkSite.init("safety"); document.querySelectorAll(".tg-link").forEach(a => a.setAttribute("href", WinkSite.telegramHref()));</script>
+</body>
+</html>

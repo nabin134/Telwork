@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile — Wink Me Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="detail-wrap">
+      <div class="container" id="profileRoot">
+        <a class="back-link" href="profiles.html">← Back to profiles</a>
+        <p>Loading profile…</p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/config.js"></script>
+  <script src="js/profiles-data.js"></script>
+  <script src="js/site.js"></script>
+  <script>
+    WinkSite.init("profiles");
+    const params = new URLSearchParams(location.search);
+    const slug = params.get("slug");
+    const p = WinkSite.getProfile(slug);
+    const root = document.getElementById("profileRoot");
+    const tg = WinkSite.telegramAttrs();
+
+    if (!p) {
+      root.innerHTML = `<a class="back-link" href="profiles.html">← Back to profiles</a><h1>Profile not found</h1><p><a href="profiles.html">Browse all profiles</a></p>`;
+    } else {
+      document.title = `${p.name} — Wink Me Club`;
+      const initial = p.name.charAt(0);
+      root.innerHTML = `
+        <a class="back-link" href="profiles.html">← Back to profiles</a>
+        <div class="detail-grid">
+          <div class="detail-media">
+            ${p.verified ? `<span class="member-verified">${WinkSite.icons.check} Verified</span>` : ""}
+            ${p.online ? `<span class="member-online" title="Online now"></span>` : ""}
+            <img src="${p.photo}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<span class=member-initial>${initial}</span>')">
+          </div>
+          <div class="detail-body">
+            <h1>${p.name}${p.age ? ", " + p.age : ""}</h1>
+            <p class="detail-meta">${p.city ? WinkSite.icons.pin + " " + p.city : ""}${p.status ? " · " + p.status : ""}</p>
+            <p class="detail-bio">Members can read the full introduction, see interests, and message ${p.name} directly after joining.</p>
+            <div class="paywall">
+              <div class="paywall-lock">${WinkSite.icons.lock}</div>
+              <h2>Join to unlock full profile</h2>
+              <p>Silver Membership unlocks introductions, interests, and messaging via our Telegram community.</p>
+              <ul class="paywall-teaser">
+                <li><span class="blurred-bar w-90"></span></li>
+                <li><span class="blurred-bar w-75"></span></li>
+                <li><span class="blurred-bar w-60"></span></li>
+              </ul>
+              <div class="paywall-plans">
+                <div class="paywall-plan is-featured">
+                  <span class="pp-name">Silver</span>
+                  <span class="pp-price">₹1050</span>
+                  <span class="pp-period">one time</span>
+                </div>
+              </div>
+              <a class="btn btn-gradient btn-lg paywall-cta tg-link" ${tg}>Join on Telegram</a>
+              <p class="paywall-note">Joining gives community access — it does not guarantee a match or a reply.</p>
+            </div>
+          </div>
+        </div>
+        <div class="more-members">
+          <h2 class="section-title">More members</h2>
+          <div class="title-heart">❤</div>
+          <div class="member-grid" id="moreMembers"></div>
+        </div>`;
+      const others = WinkSite.profiles.filter((x) => x.slug !== p.slug).slice(0, 6);
+      WinkSite.renderMemberGrid("#moreMembers", others);
+      document.querySelectorAll("#moreMembers .reveal").forEach((n) => n.classList.add("is-visible"));
+      document.querySelectorAll(".tg-link").forEach((a) => a.setAttribute("href", WinkSite.telegramHref()));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About us — Wink Me Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page-hero">
+      <div class="container"><h1>About us</h1><p>Who we are and what we stand for.</p></div>
+    </section>
+    <section class="section">
+      <div class="container prose" style="margin-inline:auto">
+        <p>Wink Me Club is a friendly 18+ community for adults who want honest conversations and real connections. We keep things simple: no endless forms, no noisy feeds — just people, talking.</p>
+        <p>Our team moderates the community daily to keep it welcoming and respectful for everyone. <strong>Connect. Wink. Match.</strong></p>
+        <a class="btn btn-gradient tg-link" href="#telegram">Join on Telegram</a>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/config.js"></script>
+  <script src="js/profiles-data.js"></script>
+  <script src="js/site.js"></script>
+  <script>WinkSite.init("about"); document.querySelectorAll(".tg-link").forEach(a => a.setAttribute("href", WinkSite.telegramHref()));</script>
+</body>
+</html>
