@@ -300,6 +300,10 @@
     initCarousel(root, { track: ".gallery-track", slide: ".gallery-slide", responsive: true });
   }
 
+  function initReviewSlider(root) {
+    initCarousel(root, { track: ".review-track", slide: ".review-slide", responsive: true });
+  }
+
   window.WinkSite = {
     icons,
     telegramAttrs,
@@ -310,6 +314,7 @@
     base,
     initPlanSlider,
     initGallerySlider,
+    initReviewSlider,
     init(active) {
       renderHeader(active);
       renderFooter();
@@ -318,6 +323,7 @@
       wireReveal();
       initPlanSlider(document.getElementById("planSlider"));
       initGallerySlider(document.getElementById("gallerySlider"));
+      initReviewSlider(document.getElementById("reviewSlider"));
     },
   };
 })();
