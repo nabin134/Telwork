@@ -143,17 +143,19 @@
     nodes.forEach((n) => io.observe(n));
   }
 
-  function initPlanSlider(root) {
+  function initCarousel(root, opts) {
     if (!root) return;
-    const track = root.querySelector(".plan-track");
-    const slides = [...root.querySelectorAll(".plan-slide")];
+    const trackSel = opts.track || ".plan-track";
+    const slideSel = opts.slide || ".plan-slide";
+    const track = root.querySelector(trackSel);
+    const slides = [...root.querySelectorAll(slideSel)];
     const dots = [...root.querySelectorAll(".plan-dot")];
     const prev = root.querySelector(".plan-nav-prev");
     const next = root.querySelector(".plan-nav-next");
     if (!track || slides.length < 2) return;
 
     let index = 0;
-    const delay = parseInt(root.dataset.autoplay || "5000", 10);
+    const delay = parseInt(root.dataset.autoplay || "2000", 10);
     let timer = null;
 
     function goTo(i) {
@@ -190,6 +192,14 @@
     start();
   }
 
+  function initPlanSlider(root) {
+    initCarousel(root, { track: ".plan-track", slide: ".plan-slide" });
+  }
+
+  function initGallerySlider(root) {
+    initCarousel(root, { track: ".gallery-track", slide: ".gallery-slide" });
+  }
+
   window.WinkSite = {
     icons,
     telegramAttrs,
@@ -199,6 +209,7 @@
     cfg,
     base,
     initPlanSlider,
+    initGallerySlider,
     init(active) {
       renderHeader(active);
       renderFooter();
@@ -206,6 +217,7 @@
       wireTelegram();
       wireReveal();
       initPlanSlider(document.getElementById("planSlider"));
+      initGallerySlider(document.getElementById("gallerySlider"));
     },
   };
 })();

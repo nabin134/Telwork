@@ -428,30 +428,41 @@ p { margin: 0 0 1em; }
 .step h3 { font-size: 1.05rem; margin-bottom: .3rem; }
 .step p { color: var(--muted); font-size: .88rem; margin: 0; }
 
-/* ---------- Gallery ---------- */
-.gallery {
- display: grid;
- grid-template-columns: repeat(5, 1fr);
- gap: 1rem;
- margin-bottom: 3rem;
+/* ---------- Community gallery slider ---------- */
+.gallery-slider {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto 2.4rem;
+  padding: 0 3rem 1.2rem;
 }
-.gallery-card {
- margin: 0;
- border-radius: var(--radius);
- overflow: hidden;
- aspect-ratio: 4 / 4.4;
- box-shadow: var(--shadow);
- background: var(--grad-soft);
- border: 4px solid #fff;
- transition: transform .2s ease, box-shadow .2s ease;
+.gallery-track-wrap {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 4px solid #fff;
 }
-.gallery-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
-.gallery-card img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-fallback { display: none; color: var(--pink); }
-.gallery-card.is-fallback .gallery-fallback {
- display: grid;
- place-items: center;
- height: 100%;
+.gallery-track {
+  display: flex;
+  transition: transform .5s cubic-bezier(.22, .9, .28, 1);
+  will-change: transform;
+}
+.gallery-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  margin: 0;
+  aspect-ratio: 4 / 4.4;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gallery-slider .plan-nav { top: 42%; }
+@media (max-width: 560px) {
+  .gallery-slider { padding: 0 2.4rem 1rem; max-width: 100%; }
 }
 
 /* ---------- CTA banner ---------- */
@@ -1052,8 +1063,6 @@ p { margin: 0 0 1em; }
  .member-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
  .steps { grid-template-columns: repeat(3, 1fr); row-gap: 2.4rem; }
  .step:nth-child(3)::after { display: none; }
- .gallery { grid-template-columns: repeat(3, 1fr); }
- .gallery-card:nth-child(n+4) { display: none; }
 }
 
 @media (max-width: 900px) {
@@ -1114,8 +1123,6 @@ p { margin: 0 0 1em; }
  .section { padding: 3.2rem 0; }
  .feature-grid { grid-template-columns: 1fr; }
  .steps { grid-template-columns: 1fr; }
- .gallery { grid-template-columns: 1fr 1fr; }
- .gallery-card:nth-child(n+4) { display: none; }
  .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
  .hero-cta { gap: .7rem; }
  .hero-cta .btn { width: 100%; justify-content: center; }
