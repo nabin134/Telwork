@@ -471,6 +471,12 @@ p { margin: 0 0 1em; }
     min-width: calc((100% - 2rem) / 3);
   }
 }
+@media (min-width: 1025px) {
+  .gallery-slide {
+    flex: 0 0 calc((100% - 2rem) / 3);
+    min-width: calc((100% - 2rem) / 3);
+  }
+}
 @media (max-width: 700px) {
   .gallery-slider { padding: 0 2.5rem 1rem; }
   .gallery-slide {

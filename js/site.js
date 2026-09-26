@@ -148,40 +148,117 @@
     const trackSel = opts.track || ".plan-track";
     const slideSel = opts.slide || ".plan-slide";
     const track = root.querySelector(trackSel);
-    const slides = [...root.querySelectorAll(slideSel)];
+    if (!track) return;
+
+    // Remove previous clones if re-init
+    track.querySelectorAll(`${slideSel}[data-clone="1"]`).forEach((n) => n.remove());
+
+    const originals = [...track.querySelectorAll(slideSel)];
+    if (originals.length < 2) return;
+
+    // Duplicate slides for seamless right→left loop
+    originals.forEach((slide) => {
+      const clone = slide.cloneNode(true);
+      clone.setAttribute("data-clone", "1");
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+    });
+
+    const realCount = originals.length;
     const dots = [...root.querySelectorAll(".plan-dot")];
     const prev = root.querySelector(".plan-nav-prev");
     const next = root.querySelector(".plan-nav-next");
-    if (!track || slides.length < 2) return;
+    const delay = parseInt(root.dataset.autoplay || "2000", 10);
 
     let index = 0;
-    const delay = parseInt(root.dataset.autoplay || "2000", 10);
     let timer = null;
+    let locked = false;
+
     const perView = () => {
       if (opts.responsive) {
         const w = window.innerWidth;
         if (w <= 480) return 1;
         if (w <= 700) return 2;
         if (w <= 1024) return 3;
-        return 5;
+        return 3; // keep room to rotate through all 5
       }
       return 1;
     };
 
-    function goTo(i) {
-      const visible = perView();
-      const maxIndex = Math.max(0, slides.length - visible);
-      index = ((i % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
-      const slide = slides[0];
-      const gap = opts.responsive ? (parseFloat(getComputedStyle(track).gap) || 0) : 0;
+    function metrics() {
+      const slide = originals[0];
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
       const step = slide.getBoundingClientRect().width + gap;
-      track.style.transform = `translateX(-${index * step}px)`;
-      dots.forEach((d, di) => d.classList.toggle("is-active", di === index));
+      return { step, visible: perView() };
+    }
+
+    function setX(i, animate) {
+      const { step } = metrics();
+      if (!animate) {
+        track.style.transition = "none";
+      } else {
+        track.style.transition = "";
+      }
+      track.style.transform = `translateX(-${i * step}px)`;
+      if (!animate) {
+        // force reflow then restore transition
+        void track.offsetHeight;
+        track.style.transition = "";
+      }
+    }
+
+    function syncDots(i) {
+      const dotIndex = ((i % realCount) + realCount) % realCount;
+      dots.forEach((d, di) => d.classList.toggle("is-active", di === dotIndex));
+    }
+
+    function goNext() {
+      if (locked) return;
+      index += 1;
+      setX(index, true);
+      syncDots(index);
+
+      if (index >= realCount) {
+        locked = true;
+        const onEnd = (e) => {
+          if (e && e.target !== track) return;
+          track.removeEventListener("transitionend", onEnd);
+          index = 0;
+          setX(0, false);
+          syncDots(0);
+          locked = false;
+        };
+        track.addEventListener("transitionend", onEnd);
+        // fallback if transitionend missed
+        setTimeout(onEnd, 700);
+      }
+    }
+
+    function goPrev() {
+      if (locked) return;
+      if (index === 0) {
+        // jump to clone set end without animation, then animate one step left visually backward
+        locked = true;
+        index = realCount;
+        setX(index, false);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            index = realCount - 1;
+            setX(index, true);
+            syncDots(index);
+            locked = false;
+          });
+        });
+        return;
+      }
+      index -= 1;
+      setX(index, true);
+      syncDots(index);
     }
 
     function start() {
       stop();
-      if (delay > 0) timer = setInterval(() => goTo(index + 1), delay);
+      if (delay > 0) timer = setInterval(goNext, delay);
     }
 
     function stop() {
@@ -189,11 +266,15 @@
       timer = null;
     }
 
-    prev?.addEventListener("click", () => { goTo(index - 1); start(); });
-    next?.addEventListener("click", () => { goTo(index + 1); start(); });
+    prev?.addEventListener("click", () => { goPrev(); start(); });
+    next?.addEventListener("click", () => { goNext(); start(); });
     dots.forEach((d) => {
       d.addEventListener("click", () => {
-        goTo(parseInt(d.dataset.index || "0", 10));
+        if (locked) return;
+        const target = parseInt(d.dataset.index || "0", 10);
+        index = target;
+        setX(index, true);
+        syncDots(index);
         start();
       });
     });
@@ -202,9 +283,10 @@
     root.addEventListener("mouseleave", start);
     root.addEventListener("touchstart", stop, { passive: true });
     root.addEventListener("touchend", start, { passive: true });
-    window.addEventListener("resize", () => goTo(index));
+    window.addEventListener("resize", () => setX(index % realCount, false));
 
-    goTo(0);
+    setX(0, false);
+    syncDots(0);
     start();
   }
 
