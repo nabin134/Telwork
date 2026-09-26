@@ -798,6 +798,99 @@ p { margin: 0 0 1em; }
  max-width: 44rem;
  margin: 2rem auto 0;
 }
+.perk-check {
+ display: inline-grid;
+ place-items: center;
+ width: 1.25rem;
+ height: 1.25rem;
+ border-radius: 50%;
+ background: var(--grad-soft);
+ color: var(--crimson);
+ font-size: .75rem;
+ font-weight: 700;
+ flex: 0 0 auto;
+ margin-top: .1rem;
+}
+.plan-card.is-featured .perk-check {
+ background: rgba(255,255,255,.2);
+ color: #fff;
+}
+.plan-grid-vip { max-width: 1100px; margin-inline: auto; }
+.tier-silver { border-color: #c0c7d1; }
+.tier-gold.is-featured { background: linear-gradient(135deg, #E63965, #FF7A45 55%, #f5b942); }
+.tier-platinum { border-color: #b8a4d4; background: linear-gradient(180deg, #fff 0%, #f7f2ff 100%); }
+
+/* ---------- Membership slider (homepage) ---------- */
+.plan-slider {
+ position: relative;
+ max-width: 420px;
+ margin: 0 auto;
+ padding: 0 3rem 2.5rem;
+}
+.plan-track-wrap {
+ overflow: hidden;
+ border-radius: var(--radius-lg);
+}
+.plan-track {
+ display: flex;
+ transition: transform .45s ease;
+ will-change: transform;
+}
+.plan-slide {
+ flex: 0 0 100%;
+ min-width: 100%;
+ margin: .6rem 0 0;
+ box-sizing: border-box;
+}
+.plan-nav {
+ position: absolute;
+ top: 45%;
+ transform: translateY(-50%);
+ z-index: 2;
+ width: 42px;
+ height: 42px;
+ border: 0;
+ border-radius: 50%;
+ background: #fff;
+ color: var(--crimson);
+ font-size: 1.6rem;
+ line-height: 1;
+ cursor: pointer;
+ box-shadow: var(--shadow);
+ display: grid;
+ place-items: center;
+ transition: transform .15s ease, box-shadow .15s ease;
+}
+.plan-nav:hover { transform: translateY(-50%) scale(1.06); box-shadow: var(--shadow-lg); }
+.plan-nav-prev { left: 0; }
+.plan-nav-next { right: 0; }
+.plan-dots {
+ display: flex;
+ justify-content: center;
+ gap: .55rem;
+ margin-top: 1.2rem;
+}
+.plan-dot {
+ width: 10px;
+ height: 10px;
+ border-radius: 999px;
+ border: 0;
+ padding: 0;
+ background: var(--pink);
+ opacity: .35;
+ cursor: pointer;
+ transition: width .2s ease, opacity .2s ease;
+}
+.plan-dot.is-active {
+ width: 26px;
+ opacity: 1;
+ background: var(--grad);
+}
+
+@media (max-width: 560px) {
+ .plan-slider { padding: 0 2.4rem 2rem; }
+ .plan-nav { width: 36px; height: 36px; font-size: 1.35rem; }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {

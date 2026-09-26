@@ -197,6 +197,53 @@
     return profiles.find((p) => p.slug === slug);
   }
 
+  function initPlanSlider(root) {
+    if (!root) return;
+    const track = root.querySelector(".plan-track");
+    const slides = [...root.querySelectorAll(".plan-slide")];
+    const dots = [...root.querySelectorAll(".plan-dot")];
+    const prev = root.querySelector(".plan-nav-prev");
+    const next = root.querySelector(".plan-nav-next");
+    if (!track || slides.length < 2) return;
+
+    let index = 0;
+    const delay = parseInt(root.dataset.autoplay || "5000", 10);
+    let timer = null;
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, di) => d.classList.toggle("is-active", di === index));
+    }
+
+    function start() {
+      stop();
+      if (delay > 0) timer = setInterval(() => goTo(index + 1), delay);
+    }
+
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    prev?.addEventListener("click", () => { goTo(index - 1); start(); });
+    next?.addEventListener("click", () => { goTo(index + 1); start(); });
+    dots.forEach((d) => {
+      d.addEventListener("click", () => {
+        goTo(parseInt(d.dataset.index || "0", 10));
+        start();
+      });
+    });
+
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("touchstart", stop, { passive: true });
+    root.addEventListener("touchend", start, { passive: true });
+
+    goTo(0);
+    start();
+  }
+
   window.WinkSite = {
     icons,
     telegramAttrs,
@@ -209,12 +256,14 @@
     profiles,
     cfg,
     base,
+    initPlanSlider,
     init(active) {
       renderHeader(active);
       renderFooter();
       wireNav();
       wireTelegram();
       wireReveal();
+      initPlanSlider(document.getElementById("planSlider"));
     },
   };
 })();
