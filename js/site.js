@@ -50,7 +50,6 @@
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Main navigation">
       <a href="${base}index.html" class="${active === "home" ? "active" : ""}">Home</a>
-      <a href="${base}profiles.html" class="${active === "profiles" ? "active" : ""}">Profiles</a>
       <a href="${base}membership.html" class="${active === "membership" ? "active" : ""}">Membership</a>
       <a href="${base}how-it-works.html" class="${active === "how" ? "active" : ""}">How it works</a>
       <a href="${base}safety.html" class="${active === "safety" ? "active" : ""}">Safety</a>
@@ -87,7 +86,6 @@
       <h3>Quick links</h3>
       <a href="${base}about.html">About us</a>
       <a href="${base}membership.html">Membership</a>
-      <a href="${base}profiles.html">Verified profiles</a>
       <a href="${base}how-it-works.html">How it works</a>
       <a href="${base}contact.html">Contact us</a>
     </div>

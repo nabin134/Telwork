@@ -88,18 +88,6 @@
       </div>
     </section>
 
-    <section class="section" id="profiles">
-      <div class="container">
-        <h2 class="section-title">Meet our verified members</h2>
-        <div class="title-heart">❤</div>
-        <p class="section-intro">Every profile with a badge has had their identity checked by our team, and every photo is published with the member's permission.</p>
-        <div class="member-grid" id="homeMembers"></div>
-        <div class="section-action">
-          <a class="btn btn-gradient" href="profiles.html">See all profiles</a>
-        </div>
-      </div>
-    </section>
-
     <section class="section section-tint" id="how">
       <div class="container">
         <h2 class="section-title">How it works</h2>
@@ -194,18 +182,9 @@
   <div id="site-footer"></div>
 
   <script src="js/config.js"></script>
-  <script src="js/profiles-data.js"></script>
   <script src="js/site.js"></script>
   <script>
     WinkSite.init("home");
-    WinkSite.renderMemberGrid("#homeMembers", WinkSite.profiles);
-    WinkSite.init = WinkSite.init; // reveal already ran; re-observe new cards
-    document.querySelectorAll("#homeMembers .reveal").forEach((n) => {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); } });
-      }, { threshold: 0.12 });
-      io.observe(n);
-    });
     document.querySelectorAll(".tg-link").forEach((a) => {
       a.setAttribute("href", WinkSite.telegramHref());
       if (WinkSite.cfg.telegramUrl) a.setAttribute("target", "_blank");
