@@ -232,12 +232,15 @@ p { margin: 0 0 1em; }
 }
 .cta-note { color: var(--muted); font-weight: 500; font-size: .95rem; }
 .trust-row { display: flex; align-items: center; gap: .9rem; }
-.avatar-stack { display: flex; }
+.avatar-stack { display: flex; align-items: center; }
 .avatar {
- width: 40px; height: 40px;
+ width: 42px; height: 42px;
  border-radius: 50%;
  border: 3px solid #fff;
  box-shadow: var(--shadow);
+ object-fit: cover;
+ object-position: center top;
+ background: var(--grad-soft);
 }
 .avatar + .avatar { margin-left: -12px; }
 .a1 { background: linear-gradient(135deg, #FF8FB1, #E63965); }
