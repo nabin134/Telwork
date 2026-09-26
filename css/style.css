@@ -816,59 +816,204 @@ p { margin: 0 0 1em; }
  color: #fff;
 }
 .plan-grid-vip { max-width: 1100px; margin-inline: auto; }
-.tier-silver { border-color: #c0c7d1; }
-.tier-gold.is-featured { background: linear-gradient(135deg, #E63965, #FF7A45 55%, #f5b942); }
-.tier-platinum { border-color: #b8a4d4; background: linear-gradient(180deg, #fff 0%, #f7f2ff 100%); }
+
+/* ---------- Attractive VIP cards ---------- */
+.section-vip {
+  background:
+    radial-gradient(42rem 22rem at 10% 0%, rgba(255, 228, 236, .9) 0%, transparent 60%),
+    radial-gradient(36rem 20rem at 95% 30%, rgba(255, 237, 228, .85) 0%, transparent 55%),
+    linear-gradient(180deg, #FFF9FB 0%, #FFFFFF 100%);
+}
+.vip-eyebrow {
+  text-align: center;
+  margin: 0 0 .4rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--crimson);
+}
+.vip-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px;
+  padding: 2.1rem 1.7rem 1.7rem;
+  border: 1px solid rgba(230, 57, 101, .12);
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(51, 23, 34, .08);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.vip-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 60px rgba(230, 57, 101, .16);
+}
+.vip-card-glow {
+  position: absolute;
+  inset: -40% auto auto -20%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(28px);
+  opacity: .55;
+}
+.vip-card.tier-silver .vip-card-glow { background: #cfd8e6; }
+.vip-card.tier-gold .vip-card-glow { background: #ffb457; top: -30%; left: 40%; }
+.vip-card.tier-platinum .vip-card-glow { background: #cbb6ff; }
+.vip-card.tier-silver {
+  background: linear-gradient(165deg, #ffffff 0%, #f4f7fb 55%, #e8eef6 100%);
+  border-color: #c8d0db;
+}
+.vip-card.tier-gold.is-featured,
+.vip-card.tier-gold {
+  background: linear-gradient(145deg, #E63965 0%, #FF7A45 48%, #f6b23a 100%);
+  border: none;
+  color: #fff;
+  box-shadow: 0 24px 55px rgba(230, 57, 101, .35);
+}
+.vip-card.tier-platinum {
+  background: linear-gradient(165deg, #ffffff 0%, #f6f0ff 50%, #ebe2ff 100%);
+  border-color: #c9b4ef;
+}
+.vip-medal {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: .7rem;
+  filter: drop-shadow(0 8px 16px rgba(51, 23, 34, .15));
+  animation: medalFloat 3.6s ease-in-out infinite;
+}
+@keyframes medalFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.vip-chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: .28rem .85rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: rgba(230, 57, 101, .1);
+  color: var(--crimson);
+  margin-bottom: .7rem;
+}
+.vip-card.tier-gold .vip-chip {
+  background: rgba(255,255,255,.22);
+  color: #fff;
+}
+.vip-card.tier-platinum .vip-chip {
+  background: rgba(120, 70, 180, .12);
+  color: #6b3fa0;
+}
+.vip-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  margin: 0 0 .35rem;
+  color: inherit;
+}
+.vip-card.tier-silver .vip-title,
+.vip-card.tier-platinum .vip-title { color: var(--ink); }
+.vip-lead {
+  margin: 0 0 1.1rem;
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.vip-card.tier-gold .vip-lead { color: rgba(255,255,255,.92); }
+.vip-perks {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  flex: 1 1 auto;
+}
+.vip-perks li {
+  position: relative;
+  padding: .45rem 0 .45rem 1.55rem;
+  font-size: .93rem;
+  line-height: 1.45;
+  border-bottom: 1px solid rgba(51, 23, 34, .06);
+}
+.vip-card.tier-gold .vip-perks li { border-bottom-color: rgba(255,255,255,.18); }
+.vip-perks li:last-child { border-bottom: 0; }
+.vip-perks li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: .45rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .68rem;
+  font-weight: 700;
+  background: var(--grad);
+  color: #fff;
+}
+.vip-card.tier-gold .vip-perks li::before {
+  background: #fff;
+  color: var(--crimson);
+}
+.vip-cta {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+}
 
 /* ---------- Membership slider (homepage) ---------- */
 .plan-slider {
  position: relative;
- max-width: 420px;
+ max-width: 440px;
  margin: 0 auto;
- padding: 0 3rem 2.5rem;
+ padding: 0 3.2rem 2.5rem;
 }
 .plan-track-wrap {
  overflow: hidden;
- border-radius: var(--radius-lg);
+ border-radius: 28px;
 }
 .plan-track {
  display: flex;
- transition: transform .45s ease;
+ transition: transform .55s cubic-bezier(.22, .9, .28, 1);
  will-change: transform;
 }
 .plan-slide {
  flex: 0 0 100%;
  min-width: 100%;
- margin: .6rem 0 0;
+ margin: .35rem 0 0;
  box-sizing: border-box;
 }
 .plan-nav {
  position: absolute;
- top: 45%;
+ top: 46%;
  transform: translateY(-50%);
  z-index: 2;
- width: 42px;
- height: 42px;
+ width: 44px;
+ height: 44px;
  border: 0;
  border-radius: 50%;
  background: #fff;
  color: var(--crimson);
- font-size: 1.6rem;
+ font-size: 1.7rem;
  line-height: 1;
  cursor: pointer;
- box-shadow: var(--shadow);
+ box-shadow: 0 10px 28px rgba(230, 57, 101, .18);
  display: grid;
  place-items: center;
  transition: transform .15s ease, box-shadow .15s ease;
 }
-.plan-nav:hover { transform: translateY(-50%) scale(1.06); box-shadow: var(--shadow-lg); }
+.plan-nav:hover { transform: translateY(-50%) scale(1.07); box-shadow: var(--shadow-lg); }
 .plan-nav-prev { left: 0; }
 .plan-nav-next { right: 0; }
 .plan-dots {
  display: flex;
  justify-content: center;
  gap: .55rem;
- margin-top: 1.2rem;
+ margin-top: 1.35rem;
 }
 .plan-dot {
  width: 10px;
@@ -882,14 +1027,20 @@ p { margin: 0 0 1em; }
  transition: width .2s ease, opacity .2s ease;
 }
 .plan-dot.is-active {
- width: 26px;
+ width: 28px;
  opacity: 1;
  background: var(--grad);
 }
 
 @media (max-width: 560px) {
- .plan-slider { padding: 0 2.4rem 2rem; }
- .plan-nav { width: 36px; height: 36px; font-size: 1.35rem; }
+ .plan-slider { padding: 0 2.5rem 2rem; max-width: 100%; }
+ .plan-nav { width: 38px; height: 38px; font-size: 1.4rem; }
+ .vip-card { padding: 1.8rem 1.35rem 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+ .vip-medal { animation: none; }
+ .plan-track { transition: none; }
 }
 
 /* ---------- Responsive ---------- */
