@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: winkme-dating
+    runtime: static
+    repo: https://github.com/nabin134/Telwork
+    branch: main
+    buildCommand: "echo Static site - no build needed"
+    staticPublishPath: .
+    autoDeployTrigger: commit
